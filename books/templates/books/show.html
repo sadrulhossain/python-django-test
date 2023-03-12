@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Book</title>
+    <script src="https://cdn.tailwindcss.com/3.2.6?plugins=forms@0.5.3,typography@0.5.9,aspect-ratio@0.4.2,line-clamp@0.4.2"></script>
+</head>
+<body>
+        <div class="container-xl mx-auto my-10">
+            <div class="grid grid-cols-3">
+                <div class="flex align-right">
+                    <img src="{{book.thumbnailUrl}}" width="200px" height="auto"/>
+                </div>
+
+                <div class="flex">
+                    <p class="text-2xl text-gray-500">{{book.title}}</p>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
