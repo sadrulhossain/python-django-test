@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com/3.2.6?plugins=forms@0.5.3,typography@0.5.9,aspect-ratio@0.4.2,line-clamp@0.4.2"></script>
 </head>
 <body>
-        <div class="container-lg mx-auto my-10">
+        <div class="container-lg mx-auto my-10 p-20">
             <div class="grid grid-cols-4 gap-4">
                 <div class="flex col-span-1 justify-end">
                     <img src="{{book.thumbnailUrl}}" width="200px" style="height: fit-content"/>
@@ -25,6 +25,26 @@
                         <p class="text-lg text-gray-600 font-medium">Description</p>
                         <p class="text-gray-400 mt-5 font-thin">{{book.longDescription}}</p>
                     </div>
+                    <div class="flex flex-col mt-10">
+                        <form method="post" action="{% url 'book.saveReview'  %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="book_id" value="{{book.id}}">
+                            <textarea class="border rounded p-2 w-full"
+                                      name="review_body" id="reviewBody" cols=20" rows="5"
+                                      placeholder="Type your review here...."></textarea>
+                            <button class="float-right border rounded p-2 bg-gray-800 text-white"
+                                    type="submit" id="submitReview">Submit</button>
+                        </form>
+                    </div>
+                    {% if bookReviews %}
+                    <div class="flex flex-col mt-10">
+                        <ul>
+                            {% for review in bookReviews %}
+                            <li>{{review.body}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
