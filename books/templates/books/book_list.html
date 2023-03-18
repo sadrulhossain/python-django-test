@@ -1,0 +1,17 @@
+{% extends 'books/base.html' %}
+{% block app_title %}
+{% endblock %}
+{% block app_content %}
+ <div class="grid grid-cols-4 gap-4">
+            {% if book_list %}
+            {% for book in book_list %}
+                <a href="{% url 'book.show' book.id %}" class="justify-self-center text-center my-4">
+                    <div class="flex justify-center">
+                        <img src="{{book.thumbnailUrl}}" width="200px" height="auto"/>
+                    </div>
+                    <p class="text-lg text-gray-700">{{book.title}}</p>
+                </a>
+            {% endfor %}
+            {% endif %}
+        </div>
+{% endblock %}

@@ -13,6 +13,6 @@ class Book(models.Model) :
 
 
 class Review(models.Model) :
-    bookId = models.BigIntegerField(default=0)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
     body = models.TextField()
-    createdAt = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateTimeField(auto_now=True, null=True)
