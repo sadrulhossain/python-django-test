@@ -2,40 +2,46 @@
 {% block app_title %}:: {{book.title}}{% endblock %}
 {% block app_content %}
 <div class="grid grid-cols-4 gap-4">
-                <div class="flex col-span-1 justify-end">
-                    <img src="{{book.thumbnailUrl}}" width="200px" style="height: fit-content"/>
-                </div>
-                <div class="col-span-3">
-                    <div class="flex flex-col">
-                        <p class="text-2xl text-gray-600 font-bold">{{book.title}}</p>
-                    </div>
-                    <div class="flex flex-col mt-5">
-                        <p class="text-gray-400 mt-5 font-thin">{{book.shortDescription}}</p>
-                    </div>
-                    <div class="flex flex-col mt-5">
-                        <p class="text-lg text-gray-600 font-medium">Description</p>
-                        <p class="text-gray-400 mt-5 font-thin">{{book.longDescription}}</p>
-                    </div>
-                    <div class="flex flex-col mt-10">
-                        <form method="post" action="{% url 'book.saveReview'  %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="book_id" value="{{book.id}}">
-                            <textarea class="border rounded p-2 w-full"
-                                      name="review_body" id="reviewBody" cols=20" rows="5"
-                                      placeholder="Type your review here...."></textarea>
-                            <button class="float-right border rounded p-2 bg-gray-800 text-white"
-                                    type="submit" id="submitReview">Submit</button>
-                        </form>
-                    </div>
-                    {% if bookReviews %}
-                    <div class="flex flex-col mt-10">
-                        <ul>
-                            {% for review in bookReviews %}
-                            <li>{{review.body}}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+    <div class="flex col-span-1 justify-end">
+        <img src="{{book.thumbnailUrl}}" style="height: fit-content" width="200px"/>
+    </div>
+    <div class="col-span-3">
+        <div class="flex flex-col">
+            <p class="text-2xl text-gray-600 font-bold">{{book.title}}</p>
+            <p class="text-sm text-gray-400 mt-5 font-thin">
+                {% for author in authors %}
+                <a href="{% url 'books.byAuthor' author.id %}">{{author.name}}</a>,
+                {% endfor %}
+            </p>
+        </div>
+        <div class="flex flex-col mt-5">
+            <p class="text-gray-400 mt-5 font-sm font-thin">{{book.shortDescription}}</p>
+        </div>
+        <div class="flex flex-col mt-5">
+            <p class="text-lg text-gray-600 font-medium">Description</p>
+            <p class="text-gray-400 mt-5 font-sm font-thin">{{book.longDescription}}</p>
+        </div>
+        <div class="flex flex-col mt-10">
+            <form action="{% url 'book.saveReview'  %}" method="post">
+                {% csrf_token %}
+                <input name="book_id" type="hidden" value="{{book.id}}">
+                <textarea class="border rounded p-2 w-full"
+                          cols=20" id="reviewBody" name="review_body" placeholder="Type your review here...."
+                          rows="5"></textarea>
+                <button class="float-right border rounded p-2 bg-gray-800 text-white"
+                        id="submitReview" type="submit">Submit
+                </button>
+            </form>
+        </div>
+        {% if bookReviews %}
+        <div class="flex flex-col mt-10">
+            <ul>
+                {% for review in bookReviews %}
+                <li>{{review.body}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
